@@ -1,14 +1,8 @@
-/* =====================================================
-   PORTFOLIO APP — Vanilla JS
-   GitHub: https://github.com/1Anthonia
-   Author: Anthonia Adeoye
-   ===================================================== */
 
 const GITHUB_USER = '1Anthonia';
 const GITHUB_API   = `https://api.github.com/users/${GITHUB_USER}`;
 const REPOS_API    = `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`;
 
-/* ---- SELECTED PROJECTS (from GitHub repos with live URLs) ---- */
 const FEATURED_REPOS = [
   {
     name: 'portfolio-os',
@@ -67,7 +61,6 @@ const FEATURED_REPOS = [
 ];
 
 
-/* ---- TECH STACK ---- */
 const TECH_STACK = [
   {
     name: 'HTML',
@@ -113,21 +106,16 @@ const TECH_STACK = [
   },
 ];
 
-/* =====================================================
-   NAV — active link + scroll class
-   ===================================================== */
 function initNav() {
   const nav     = document.querySelector('.nav');
   const menuBtn = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
   const allLinks = document.querySelectorAll('.nav__link, .mobile-menu__link');
 
-  // Scroll: add class to nav
   window.addEventListener('scroll', () => {
     nav.classList.toggle('nav--scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // Mobile toggle
   menuBtn.addEventListener('click', () => {
     const open = mobileMenu.classList.toggle('open');
     menuBtn.classList.toggle('open', open);
@@ -135,7 +123,6 @@ function initNav() {
     mobileMenu.setAttribute('aria-hidden', !open);
   });
 
-  // Close mobile menu when link clicked
   allLinks.forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
@@ -145,7 +132,6 @@ function initNav() {
     });
   });
 
-  // Close mobile menu on outside click
   document.addEventListener('click', (event) => {
     if (mobileMenu.classList.contains('open') && !mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
       mobileMenu.classList.remove('open');
@@ -155,7 +141,6 @@ function initNav() {
     }
   });
 
-  // Active link on scroll via IntersectionObserver
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav__link');
 
@@ -174,9 +159,6 @@ function initNav() {
   sections.forEach(s => observer.observe(s));
 }
 
-/* =====================================================
-   PARTICLES
-   ===================================================== */
 function initParticles() {
   const container = document.getElementById('particles');
   if (!container) return;
@@ -196,9 +178,6 @@ function initParticles() {
   }
 }
 
-/* =====================================================
-   TECH STACK CARDS
-   ===================================================== */
 function renderTechStack() {
   const grid = document.getElementById('techGrid');
   if (!grid) return;
@@ -214,9 +193,6 @@ function renderTechStack() {
   `).join('');
 }
 
-/* =====================================================
-   PROJECT CARDS
-   ===================================================== */
 function renderProjects(repoMap) {
   const grid = document.getElementById('projectsGrid');
   if (!grid) return;
@@ -265,11 +241,7 @@ function renderProjects(repoMap) {
   });
 }
 
-/* =====================================================
-   GITHUB API — fetch profile + repos
-   ===================================================== */
 async function fetchGitHubData() {
-  // Stats in about section
   try {
     const userRes  = await fetch(GITHUB_API, { headers: { Accept: 'application/vnd.github.v3+json' } });
     if (userRes.ok) {
@@ -283,14 +255,12 @@ async function fetchGitHubData() {
     console.warn('GitHub user fetch failed', e);
   }
 
-  // Repos for language badges + live count
   let repoMap = {};
   try {
     const reposRes = await fetch(REPOS_API, { headers: { Accept: 'application/vnd.github.v3+json' } });
     if (reposRes.ok) {
       const repos = await reposRes.json();
       repos.forEach(r => { repoMap[r.name] = r; });
-      // Count repos with actual live deployment URLs (not github.com)
       const liveCount = repos.filter(r =>
         r.homepage && r.homepage.startsWith('http') && !r.homepage.includes('github.com')
       ).length;
@@ -309,9 +279,6 @@ async function fetchGitHubData() {
   return repoMap;
 }
 
-/* =====================================================
-   SCROLL-REVEAL
-   ===================================================== */
 function initScrollReveal() {
   const els = document.querySelectorAll('.reveal');
   if (!els.length) return;
@@ -328,30 +295,21 @@ function initScrollReveal() {
   els.forEach(el => io.observe(el));
 }
 
-/* =====================================================
-   FOOTER YEAR
-   ===================================================== */
 function setFooterYear() {
   const el = document.getElementById('footerYear');
   if (el) el.textContent = new Date().getFullYear();
 }
 
-/* =====================================================
-   INIT
-   ===================================================== */
 async function init() {
   initNav();
   initParticles();
   renderTechStack();
 
-  // Render projects with fallback data first
   renderProjects(null);
 
-  // Then fetch live GitHub data and re-render with lang badges
   const repoMap = await fetchGitHubData();
   renderProjects(repoMap);
 
-  // Scroll reveal (after DOM is populated)
   initScrollReveal();
   setFooterYear();
 }
