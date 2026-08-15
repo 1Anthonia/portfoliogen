@@ -1,10 +1,10 @@
 /* =====================================================
    PORTFOLIO APP — Vanilla JS
-   GitHub: https://github.com/AmoreSky
+   GitHub: https://github.com/1Anthonia
    Author: Anthonia Adeoye
    ===================================================== */
 
-const GITHUB_USER = 'AmoreSky';
+const GITHUB_USER = '1Anthonia';
 const GITHUB_API   = `https://api.github.com/users/${GITHUB_USER}`;
 const REPOS_API    = `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`;
 
@@ -15,54 +15,54 @@ const FEATURED_REPOS = [
     displayName: 'PORTFOLIO_OS',
     description: 'An OS-inspired personal portfolio built with Angular — interactive windows, animated transitions and fully responsive.',
     live: 'https://toniaportfolioos-nine.vercel.app',
-    github: 'https://github.com/AmoreSky/portfolio-os',
+    github: 'https://github.com/1Anthonia/portfolio-os',
     language: 'Angular',
-    thumb: 'thumb-portfolio-os.png',
+    thumb: 'images/thumb-portfolio-os.png',
   },
   {
     name: 'salesforce',
     displayName: 'SALESFORCE',
     description: 'A Salesforce-integrated web application — streamlined CRM workflows, data visualisation and dynamic dashboards.',
     live: 'https://salesforce-chi.vercel.app',
-    github: 'https://github.com/AmoreSky/salesforce',
+    github: 'https://github.com/1Anthonia/salesforce',
     language: 'HTML',
-    thumb: 'thumb-salesforce.png',
+    thumb: 'images/thumb-salesforce.png',
   },
   {
     name: 'Food-Share',
     displayName: 'FOOD_SHARE',
     description: 'A community-driven food sharing platform connecting donors with those in need — built with HTML & JavaScript.',
     live: 'https://food-share-three-xi.vercel.app',
-    github: 'https://github.com/AmoreSky/Food-Share',
+    github: 'https://github.com/1Anthonia/Food-Share',
     language: 'JavaScript',
-    thumb: 'thumb-food-share.png',
+    thumb: 'images/thumb-food-share.png',
   },
   {
     name: 'Zero-Hunger-Project',
     displayName: 'ZERO_HUNGER',
     description: 'A web initiative tackling food insecurity — raising awareness and driving community action against hunger.',
     live: 'https://zhungerpro.vercel.app',
-    github: 'https://github.com/AmoreSky/Zero-Hunger-Project',
+    github: 'https://github.com/1Anthonia/Zero-Hunger-Project',
     language: 'HTML',
-    thumb: 'thumb-zero-hunger.png',
+    thumb: 'images/thumb-zero-hunger.png',
   },
   {
     name: 'WayQuest-Travle-and-Tourism-Agency',
     displayName: 'WAYQUEST',
     description: 'A travel and tourism agency landing page — curated destinations, booking flows and immersive visual storytelling.',
     live: 'https://way-quest-travle-and-tourism-agency.vercel.app',
-    github: 'https://github.com/AmoreSky/WayQuest-Travle-and-Tourism-Agency',
+    github: 'https://github.com/1Anthonia/WayQuest-Travle-and-Tourism-Agency',
     language: 'HTML',
-    thumb: 'thumb-wayquest.png',
+    thumb: 'images/thumb-wayquest.png',
   },
   {
     name: 'weatherapi',
     displayName: 'WEATHER_APP',
     description: 'A real-time weather application powered by a live weather API — location search, forecasts and dynamic UI.',
     live: 'https://weatherapi-blond.vercel.app',
-    github: 'https://github.com/AmoreSky/weatherapi',
+    github: 'https://github.com/1Anthonia/weatherapi',
     language: 'CSS',
-    thumb: 'thumb-weather.png',
+    thumb: 'images/thumb-weather.png',
   },
 ];
 
@@ -143,6 +143,16 @@ function initNav() {
       menuBtn.setAttribute('aria-expanded', false);
       mobileMenu.setAttribute('aria-hidden', true);
     });
+  });
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', (event) => {
+    if (mobileMenu.classList.contains('open') && !mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+      mobileMenu.classList.remove('open');
+      menuBtn.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', false);
+      mobileMenu.setAttribute('aria-hidden', true);
+    }
   });
 
   // Active link on scroll via IntersectionObserver

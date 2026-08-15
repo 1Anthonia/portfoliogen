@@ -276,6 +276,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   animation: fadeInUp 0.9s ease both;
 }
 
+.hero__profile {
+  margin-bottom: 24px;
+}
+
+.hero__profile-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-cyan);
+  box-shadow: var(--shadow-glow);
+  margin: 0 auto;
+}
+
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -754,6 +768,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .nav__menu-btn { display: flex; }
   
   /* Reduce padding on mobile */
+  .hero { padding: calc(var(--nav-h) + 10px) 20px 40px; }
   .about, .tech, .projects, .contact { padding: 60px 20px; }
   .about__card { padding: 32px 24px; }
   .contact__card { padding: 48px 24px; }
